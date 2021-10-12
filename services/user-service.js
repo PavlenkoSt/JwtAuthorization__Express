@@ -2,6 +2,7 @@ const userModel = require('../models/user-model');
 const bcrypt = require('bcrypt');
 const tokenService = require('./token-service');
 const UserDTO = require('../dtos/user-dto');
+const ApiError = require('../exceptions/api-error');
 
 class UserService {
     async registration (email, password) {
@@ -9,7 +10,7 @@ class UserService {
         const candidate = await userModel.findOne({ email });
         
         if(candidate){
-            throw new Error(`Пользователь с почтой ${email} уже сущесвует`); 
+            throw ApiError.badRequest(`Пользователь с почтой ${email} уже сущесвует`); 
         }
 
         const hashPassword = await bcrypt.hash(password, 3);
