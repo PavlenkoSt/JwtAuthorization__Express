@@ -1,5 +1,4 @@
 class ApiError extends Error {
-
     errors;
     status;
 

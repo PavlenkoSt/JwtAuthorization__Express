@@ -15,19 +15,35 @@ class UserController {
 
     login (req, res, next) {
         try{
-
+            
         }catch(e){
             
         }
     }
     
-    logout (req, res, next) {}
+    logout (req, res, next) {
+        try{
 
-    activate (req, res, next) {}
+        }catch(e){
+            
+        }
+    }
 
-    refresh (req, res, next) {}
+    refresh (req, res, next) {
+        try{
 
-    getUsers (req, res, next) {}
+        }catch(e){
+            
+        }
+    }
+
+    getUsers (req, res, next) {
+        try{
+
+        }catch(e){
+            
+        }
+    }
 
 }
 
