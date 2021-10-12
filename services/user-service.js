@@ -27,6 +27,22 @@ class UserService {
             user: userDto
         }
     }
+
+    async login (email, password) { 
+
+        const user = await userModel.findOne({ email });
+        
+        if(!user){
+            throw ApiError.badRequest(`Пользователя с почтой ${email} не сущесвует`); 
+        }
+
+        const passwordIsRight = await bcrypt.compare(password, user.password);
+
+        if(!passwordIsRight){
+            throw ApiError.badRequest(`Неверный пароль`); 
+        }
+
+    }
 }
 
 module.exports = new UserService()

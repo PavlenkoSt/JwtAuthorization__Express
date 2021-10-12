@@ -1,5 +1,4 @@
 const userService = require('../services/user-service');
-const ApiError = require('../exceptions/api-error');
 
 class UserController {
     async registration (req, res, next) {
@@ -14,9 +13,12 @@ class UserController {
         }
     }
 
-    login (req, res, next) {
+    async login (req, res, next) {
         try{
+            const { email, password } = req.body;
+            const userData = await userService.login(email, password);
             
+            res.json(userData);
         }catch(e){
             next(e);
         }
