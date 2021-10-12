@@ -22,10 +22,7 @@ class UserService {
 
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-        return {
-            ...tokens,
-            user: userDto
-        }
+        return { ...tokens, user: userDto }
     }
 
     async login (email, password) { 
@@ -42,6 +39,12 @@ class UserService {
             throw ApiError.badRequest(`Неверный пароль`); 
         }
 
+        const userDto = new UserDTO(user);
+        const tokens = await tokenService.generateToken({ ...userDto });
+
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return { ...tokens, user: userDto }
     }
 }
 
