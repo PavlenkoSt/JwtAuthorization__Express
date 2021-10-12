@@ -7,7 +7,7 @@ class UserController {
         try{
             const errors = validationResult(req);
 
-            if (errors) {
+            if (errors.length) {
                 throw ApiError.badRequest('Ошибка при валидации', errors);
             }
 
@@ -26,10 +26,10 @@ class UserController {
         try{
             const errors = validationResult(req);
             
-            if (errors) {
+            if (errors.length) {
                 throw ApiError.badRequest('Ошибка при валидации', errors);
             }
-            
+
             const { email, password } = req.body;
             const userData = await userService.login(email, password);
 
@@ -40,9 +40,15 @@ class UserController {
         }
     }
     
-    logout (req, res, next) {
+    async logout (req, res, next) {
         try{
+            const { refreshToken } = req.cookies;
 
+            const token = await userService.logout(refreshToken);
+
+            res.clearCookie('refreshToken');
+
+            return res.json({ token });
         }catch(e){
             next(e);
         }
