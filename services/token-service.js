@@ -38,9 +38,8 @@ class TokenService {
 
     async verifyAccessToken (token) {
         try{
-            const verified = await jwt.verify(token, process.env.JWT_SECRET);
-            console.log(verified);
-            return verified;
+            const userData = await jwt.verify(token, process.env.JWT_SECRET);
+            return userData;
         } catch (e) {
             return null;
         }
